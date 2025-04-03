@@ -8,8 +8,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static ru.iteco.fmhandroid.ui.utils.ByIndexMatcher.withIndex;
 
-import androidx.test.espresso.ViewInteraction;
-
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.testdata.TestData;
 import ru.iteco.fmhandroid.ui.utils.RecyclerViewUtils;
@@ -18,28 +16,17 @@ public class OurMissionPage {
 
     private String expectedText;
 
-    private ViewInteraction getOurMissionTitle() {
-        return onView(withId(R.id.our_mission_title_text_view));
-    }
-
     public void checkOurMissionTitleIsDisplayed() {
-        getOurMissionTitle().check(matches(isDisplayed()));
+        onView(withId(R.id.our_mission_title_text_view)).check(matches(isDisplayed()));
     }
 
     public void checkOurMissionTitleMatch() {
-        getOurMissionTitle().check(matches(withText(TestData.OUR_MISSION_TITLE)));
-    }
-
-    private ViewInteraction getFirstOurMissionCardText() {
-        return onView(withIndex(allOf(withId(R.id.our_mission_item_description_text_view), isDisplayed()), 0));
+        onView(withId(R.id.our_mission_title_text_view)).check(matches(withText(TestData.OUR_MISSION_TITLE)));
     }
 
     public void checkFirstOurMissionCardTextIsDisplayed() {
-        getFirstOurMissionCardText().check(matches(isDisplayed()));
+        onView(withIndex(allOf(withId(R.id.our_mission_item_description_text_view), isDisplayed()), 0)).check(matches(isDisplayed()));
 
-
-//    String expectedText = RecyclerViewUtils.getTextFromRecyclerViewItem(R.id.our_mission_item_list_recycler_view,
-//            0, R.id.our_mission_item_material_card_view, R.id.our_mission_item_description_text_view);
 
         this.expectedText = RecyclerViewUtils.getTextFromRecyclerViewItem(
                 R.id.our_mission_item_list_recycler_view,
@@ -51,7 +38,7 @@ public class OurMissionPage {
     }
 
     public void checkFirstOurMissionCardTextExpectedMatch() {
-        getFirstOurMissionCardText().check(matches(withText(expectedText)));
+        onView(withIndex(allOf(withId(R.id.our_mission_item_description_text_view), isDisplayed()), 0)).check(matches(withText(expectedText)));
     }
 
 }

@@ -10,9 +10,10 @@ public class TestData {
     public static final String EMPTY_NEWS_DESCRIPTION = "";
     public static final String OUR_MISSION_TITLE = "Love is all";
     public static final String CATEGORY_TEXT = "Праздник";
+    public static final String NEWS_TITLE_TEXT = "Great News12";
     public static final String NEW_DATE = "31.03.2025";
     public static final String NEW_TIME = "12:20";
-    public static final String NEW_NEWS_CREATING_DESCRIPTION = "Welcome";
+    public static final String NEW_NEWS_CREATING_DESCRIPTION = "Happy News";
     public static final String PRIVACY_POLICY_LABEL_TEXT = "Privacy Policy:";
     public static final String PRIVACY_POLICY_LINK_TEXT = "https://vhospice.org/#/privacy-policy/";
     public static final String TERMS_OF_USE_LABEL_TEXT = "Terms of use:";
