@@ -1,7 +1,6 @@
 package ru.iteco.fmhandroid.ui.tests;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import androidx.test.espresso.Espresso;
@@ -22,7 +21,6 @@ import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.pages.LoginPage;
 import ru.iteco.fmhandroid.ui.pages.MainPage;
 import ru.iteco.fmhandroid.ui.pages.NewsPage;
-import ru.iteco.fmhandroid.ui.utils.IntViewWaiter;
 import ru.iteco.fmhandroid.ui.utils.RecyclerViewItemCountAssertion;
 import ru.iteco.fmhandroid.ui.utils.ToastMatcher;
 
@@ -42,23 +40,9 @@ public class EditNewsTest {
 
     public void setUp() {
 
-        Espresso.onView(isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.enter_button, 5000));
         loginPage = new LoginPage();
-
-        loginPage.checkAuthTextIsDisplayed();
-        loginPage.checkAuthTextMatch();
-
-        loginPage.checkLoginFieldIsDisplayed();
-        loginPage.enterCorrectLogin();
-
-        loginPage.checkPasswordFieldIsDisplayed();
-        loginPage.enterCorrectPassword();
-
-        loginPage.checkSignInButtonIsDisplayed();
-        loginPage.clickSignInButton();
-
-        Espresso.onView(isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.all_news_text_view, 3000));
-        mainPage = new MainPage();
+        loginPage.waitUntilLoginScreenLoaded();
+        mainPage = loginPage.performSuccessLogin();
 
         mainPage.checkAllNewsTextIsDisplayed();
         mainPage.checkAllNewsTextMatch();
@@ -69,8 +53,8 @@ public class EditNewsTest {
         mainPage.checkNewsMenuItemIsDisplayed();
         mainPage.clickNewsMenuItem();
 
-        Espresso.onView(isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.edit_news_material_button, 3000));
         newsPage = new NewsPage();
+        newsPage.waitEditNewsButtonIsDisplayed();
         newsPage.checkEditNewsButtonIsDisplayed();
         newsPage.clickEditNewsButton();
 
@@ -78,13 +62,9 @@ public class EditNewsTest {
 
     @After
     public void tearDown() {
-        mainPage.checkAuthorizationImageButtonIsDisplayed();
-        mainPage.clickAuthorizationImageButton();
 
-        mainPage.checkLogOutButtonMatch();
-        mainPage.clickLogOutButton();
+        mainPage.performLogOut();
 
-        Espresso.onView(isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.enter_button, 3000));
         loginPage.checkAuthTextIsDisplayed();
         loginPage.checkAuthTextMatch();
 
@@ -96,8 +76,8 @@ public class EditNewsTest {
         newsPage.checkFirstNewsEditButtonIsDisplayed();
         newsPage.clickFirstNewsEditButton();
 
-        newsPage.checkFirstNewsDescriptionFieldIsDisplayed();
-        newsPage.clickFirstNewsDescriptionField();
+        newsPage.checkNewsDescriptionFieldIsDisplayed();
+        newsPage.clickNewsDescriptionField();
         newsPage.enterNewDescription();
 
         newsPage.checkChangeSaveButtonIsDisplayed();
@@ -116,8 +96,8 @@ public class EditNewsTest {
         newsPage.checkFirstNewsEditButtonIsDisplayed();
         newsPage.clickFirstNewsEditButton();
 
-        newsPage.checkFirstNewsDescriptionFieldIsDisplayed();
-        newsPage.clickFirstNewsDescriptionField();
+        newsPage.checkNewsDescriptionFieldIsDisplayed();
+        newsPage.clickNewsDescriptionField();
 
         newsPage.leaveEmptyDescriptionField();
 
@@ -142,8 +122,8 @@ public class EditNewsTest {
         newsPage.checkFirstNewsEditButtonIsDisplayed();
         newsPage.clickFirstNewsEditButton();
 
-        newsPage.checkFirstNewsDescriptionFieldIsDisplayed();
-        newsPage.clickFirstNewsDescriptionField();
+        newsPage.checkNewsDescriptionFieldIsDisplayed();
+        newsPage.clickNewsDescriptionField();
 
         newsPage.enterAnotherDescription();
 

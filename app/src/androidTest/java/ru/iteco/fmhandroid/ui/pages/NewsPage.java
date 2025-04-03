@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 
@@ -37,6 +38,7 @@ import org.hamcrest.core.IsInstanceOf;
 import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.testdata.TestData;
+import ru.iteco.fmhandroid.ui.utils.IntViewWaiter;
 
 public class NewsPage {
 
@@ -53,31 +55,19 @@ public class NewsPage {
     }
 
     public void checkControlPanelTextIsDisplayed() {
-        onView(
-                allOf(withText("Control panel"),
-                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))), isDisplayed())).check(matches(isDisplayed()));
+        onView(allOf(withText("Control panel"), withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))), isDisplayed())).check(matches(isDisplayed()));
     }
 
     public void checkControlPanelTextMatch() {
-        onView(
-                allOf(withText("Control panel"),
-                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))), isDisplayed())).check(matches(withText("Control panel")));
+        onView(allOf(withText("Control panel"), withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))), isDisplayed())).check(matches(withText("Control panel")));
     }
 
     public void checkFirstNewsEditButtonIsDisplayed() {
-        onView(withIndex(allOf(
-                withId(R.id.edit_news_item_image_view),
-                withContentDescription("News editing button"),
-                isDisplayed()
-        ), 0)).check(matches(isDisplayed()));
+        onView(withIndex(allOf(withId(R.id.edit_news_item_image_view), withContentDescription("News editing button"), isDisplayed()), 0)).check(matches(isDisplayed()));
     }
 
     public void clickFirstNewsEditButton() {
-        onView(withIndex(allOf(
-                withId(R.id.edit_news_item_image_view),
-                withContentDescription("News editing button"),
-                isDisplayed()
-        ), 0)).perform(click());
+        onView(withIndex(allOf(withId(R.id.edit_news_item_image_view), withContentDescription("News editing button"), isDisplayed()), 0)).perform(click());
     }
 
     public void checkNewsDescriptionFieldIsDisplayed() {
@@ -198,25 +188,13 @@ public class NewsPage {
 
     public void checkNewsTitleIsDisplayed() {
 
-        onView(
-                allOf(withId(R.id.news_item_title_text_input_edit_text),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.news_item_title_text_input_layout),
-                                        0),
-                                1))).check(matches(isDisplayed()));
+        onView(allOf(withId(R.id.news_item_title_text_input_edit_text), childAtPosition(childAtPosition(withId(R.id.news_item_title_text_input_layout), 0), 1))).check(matches(isDisplayed()));
     }
 
 
     public void enterNewsTitle() {
 
-        onView(
-                allOf(withId(R.id.news_item_title_text_input_edit_text),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.news_item_title_text_input_layout),
-                                        0),
-                                1))).perform(replaceText(TestData.NEWS_TITLE_TEXT));
+        onView(allOf(withId(R.id.news_item_title_text_input_edit_text), childAtPosition(childAtPosition(withId(R.id.news_item_title_text_input_layout), 0), 1))).perform(replaceText(TestData.NEWS_TITLE_TEXT));
 
     }
 
@@ -239,14 +217,21 @@ public class NewsPage {
 
     public void scrollDownNewsList() {
         Allure.step("Прокрутить до опубликованной новости");
-        onView(withId(R.id.news_list_recycler_view)).check(matches(isDisplayed()))
-                .perform(RecyclerViewActions.scrollTo(hasDescendant(withText(TestData.NEWS_TITLE_TEXT))));
+        onView(withId(R.id.news_list_recycler_view)).check(matches(isDisplayed())).perform(RecyclerViewActions.scrollTo(hasDescendant(withText(TestData.NEWS_TITLE_TEXT))));
     }
 
     public void checkAddedNewsTitleIsDisplayed() {
         Allure.step("Проверить заголовок новой новости на видимость");
         onView(allOf(withText(TestData.NEWS_TITLE_TEXT), withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE))).check(matches(isDisplayed()));
         onView(allOf(withText(TestData.NEWS_TITLE_TEXT), withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE))).check(matches(withText(endsWith(TestData.NEWS_TITLE_TEXT))));
+    }
+
+    public void waitEditNewsButtonIsDisplayed() {
+        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.edit_news_material_button, 3000));
+    }
+
+    public void waitFilterButtonIsDisplayed() {
+        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.filter_news_material_button, 3000));
     }
 
     private static Matcher<View> childAtPosition(final Matcher<View> parentMatcher, final int position) {

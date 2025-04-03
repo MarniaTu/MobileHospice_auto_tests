@@ -12,12 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import androidx.test.espresso.Espresso;
+import androidx.test.espresso.matcher.ViewMatchers;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
 import io.qameta.allure.kotlin.Allure;
 import ru.iteco.fmhandroid.R;
+import ru.iteco.fmhandroid.ui.utils.IntViewWaiter;
 
 public class MainPage {
 
@@ -129,6 +133,11 @@ public class MainPage {
         return new LoginPage();
     }
 
+
+    public void waitAllNewsTextIsDisplayed() {
+        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.all_news_text_view, 3000));
+
+    }
 
     private static Matcher<View> childAtPosition(final Matcher<View> parentMatcher, final int position) {
 

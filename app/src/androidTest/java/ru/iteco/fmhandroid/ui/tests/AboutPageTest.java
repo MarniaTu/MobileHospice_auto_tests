@@ -40,23 +40,9 @@ public class AboutPageTest {
 
     public void setUp() {
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.enter_button, 5000));
         loginPage = new LoginPage();
-
-        loginPage.checkAuthTextIsDisplayed();
-        loginPage.checkAuthTextMatch();
-
-        loginPage.checkLoginFieldIsDisplayed();
-        loginPage.enterCorrectLogin();
-
-        loginPage.checkPasswordFieldIsDisplayed();
-        loginPage.enterCorrectPassword();
-
-        loginPage.checkSignInButtonIsDisplayed();
-        loginPage.clickSignInButton();
-
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.all_news_text_view, 3000));
-        mainPage = new MainPage();
+        loginPage.waitUntilLoginScreenLoaded();
+        mainPage = loginPage.performSuccessLogin();
 
         mainPage.checkAllNewsTextIsDisplayed();
         mainPage.checkAllNewsTextMatch();
@@ -65,13 +51,8 @@ public class AboutPageTest {
 
     @After
     public void tearDown() {
-        mainPage.checkAuthorizationImageButtonIsDisplayed();
-        mainPage.clickAuthorizationImageButton();
 
-        mainPage.checkLogOutButtonMatch();
-        mainPage.clickLogOutButton();
-
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.enter_button, 3000));
+        mainPage.performLogOut();
         loginPage.checkAuthTextIsDisplayed();
         loginPage.checkAuthTextMatch();
 
@@ -87,15 +68,15 @@ public class AboutPageTest {
         mainPage.checkAboutMenuItemIsDisplayed();
         mainPage.clickAboutMenuItem();
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.about_version_title_text_view, 3000));
         aboutPage = new AboutPage();
+        aboutPage.waitVersionTitleIsDisplayed();
         aboutPage.checkVersionTitleIsDisplayed();
         aboutPage.checkVersionTitleMatch();
 
         aboutPage.checkBackButtonIsDisplayed();
         aboutPage.clickBackButton();
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.all_news_text_view, 3000));
+        mainPage.waitAllNewsTextIsDisplayed();
         mainPage.checkAllNewsTextIsDisplayed();
         mainPage.checkAllNewsTextMatch();
 
@@ -110,8 +91,8 @@ public class AboutPageTest {
         mainPage.checkNewsMenuItemIsDisplayed();
         mainPage.clickNewsMenuItem();
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.edit_news_material_button, 3000));
         newsPage = new NewsPage();
+        newsPage.waitEditNewsButtonIsDisplayed();
         newsPage.checkEditNewsButtonIsDisplayed();
 
         mainPage.checkNewsMenuItemIsDisplayed();
@@ -120,15 +101,15 @@ public class AboutPageTest {
         mainPage.checkAboutMenuItemIsDisplayed();
         mainPage.clickAboutMenuItem();
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.about_version_title_text_view, 3000));
         aboutPage = new AboutPage();
+        aboutPage.waitVersionTitleIsDisplayed();
         aboutPage.checkVersionTitleIsDisplayed();
         aboutPage.checkVersionTitleMatch();
 
         aboutPage.checkBackButtonIsDisplayed();
         aboutPage.clickBackButton();
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.edit_news_material_button, 3000));
+        newsPage.waitEditNewsButtonIsDisplayed();
         newsPage.checkEditNewsButtonIsDisplayed();
 
     }
@@ -139,8 +120,8 @@ public class AboutPageTest {
         mainPage.checkOurMissionButtonIsDisplayed();
         mainPage.clickOurMissionButton();
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.our_mission_title_text_view, 3000));
         ourMissionPage = new OurMissionPage();
+        ourMissionPage.waitOurMissionTitleIsDisplayed();
         ourMissionPage.checkOurMissionTitleIsDisplayed();
         ourMissionPage.checkOurMissionTitleMatch();
 
@@ -150,15 +131,16 @@ public class AboutPageTest {
         mainPage.checkAboutMenuItemIsDisplayed();
         mainPage.clickAboutMenuItem();
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.about_version_title_text_view, 3000));
         aboutPage = new AboutPage();
+        aboutPage.waitVersionTitleIsDisplayed();
         aboutPage.checkVersionTitleIsDisplayed();
         aboutPage.checkVersionTitleMatch();
 
         aboutPage.checkBackButtonIsDisplayed();
         aboutPage.clickBackButton();
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.our_mission_title_text_view, 3000));
+        ourMissionPage.waitOurMissionTitleIsDisplayed();
+
         ourMissionPage.checkOurMissionTitleIsDisplayed();
         ourMissionPage.checkOurMissionTitleMatch();
 
@@ -173,8 +155,9 @@ public class AboutPageTest {
         mainPage.checkNewsMenuItemIsDisplayed();
         mainPage.clickNewsMenuItem();
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.edit_news_material_button, 3000));
         newsPage = new NewsPage();
+        newsPage.waitEditNewsButtonIsDisplayed();
+
         newsPage.checkEditNewsButtonIsDisplayed();
         newsPage.clickEditNewsButton();
 
@@ -187,15 +170,15 @@ public class AboutPageTest {
         mainPage.checkAboutMenuItemIsDisplayed();
         mainPage.clickAboutMenuItem();
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.about_version_title_text_view, 3000));
         aboutPage = new AboutPage();
+        aboutPage.waitVersionTitleIsDisplayed();
+
         aboutPage.checkVersionTitleIsDisplayed();
         aboutPage.checkVersionTitleMatch();
 
         aboutPage.checkBackButtonIsDisplayed();
         aboutPage.clickBackButton();
 
-//        Espresso.onView(ViewMatchers.isRoot()).perform(ViewWaiter.waitDisplayed(R.id.edit_news_material_button, 3000));
         newsPage.checkControlPanelTextIsDisplayed();
         newsPage.checkControlPanelTextMatch();
 

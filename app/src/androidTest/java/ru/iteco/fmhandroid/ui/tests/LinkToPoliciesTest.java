@@ -45,23 +45,9 @@ public class LinkToPoliciesTest {
 
     public void setUp() {
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.enter_button, 5000));
         loginPage = new LoginPage();
-
-        loginPage.checkAuthTextIsDisplayed();
-        loginPage.checkAuthTextMatch();
-
-        loginPage.checkLoginFieldIsDisplayed();
-        loginPage.enterCorrectLogin();
-
-        loginPage.checkPasswordFieldIsDisplayed();
-        loginPage.enterCorrectPassword();
-
-        loginPage.checkSignInButtonIsDisplayed();
-        loginPage.clickSignInButton();
-
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.all_news_text_view, 3000));
-        mainPage = new MainPage();
+        loginPage.waitUntilLoginScreenLoaded();
+        mainPage = loginPage.performSuccessLogin();
 
         mainPage.checkAllNewsTextIsDisplayed();
         mainPage.checkAllNewsTextMatch();
@@ -75,20 +61,15 @@ public class LinkToPoliciesTest {
 
         Intents.init();
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.about_version_title_text_view, 3000));
         aboutPage = new AboutPage();
+        aboutPage.waitVersionTitleIsDisplayed();
 
     }
 
     @After
     public void tearDown() {
-        mainPage.checkAuthorizationImageButtonIsDisplayed();
-        mainPage.clickAuthorizationImageButton();
+        mainPage.performLogOut();
 
-        mainPage.checkLogOutButtonMatch();
-        mainPage.clickLogOutButton();
-
-        Espresso.onView(isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.enter_button, 3000));
         loginPage.checkAuthTextIsDisplayed();
         loginPage.checkAuthTextMatch();
 

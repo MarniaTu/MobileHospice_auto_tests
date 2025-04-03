@@ -33,40 +33,19 @@ public class AllNewsTest {
     @Test
     public void allNewsTest() {
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.enter_button, 5000));
         loginPage = new LoginPage();
-
-        loginPage.checkAuthTextIsDisplayed();
-        loginPage.checkAuthTextMatch();
-
-        loginPage.checkLoginFieldIsDisplayed();
-        loginPage.enterCorrectLogin();
-
-        loginPage.checkPasswordFieldIsDisplayed();
-        loginPage.enterCorrectPassword();
-
-        loginPage.checkSignInButtonIsDisplayed();
-        loginPage.clickSignInButton();
-
-
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.all_news_text_view, 3000));
-        mainPage = new MainPage();
+        loginPage.waitUntilLoginScreenLoaded();
+        mainPage = loginPage.performSuccessLogin();
 
         mainPage.checkAllNewsTextIsDisplayed();
         mainPage.checkAllNewsTextMatch();
         mainPage.clickAllNewsText();
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.filter_news_material_button, 3000));
         newsPage = new NewsPage();
+        newsPage.waitFilterButtonIsDisplayed();
         newsPage.checkFilterButtonIsDisplayed();
 
-        mainPage.checkAuthorizationImageButtonIsDisplayed();
-        mainPage.clickAuthorizationImageButton();
-
-        mainPage.checkLogOutButtonMatch();
-        mainPage.clickLogOutButton();
-
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.enter_button, 3000));
+        mainPage.performLogOut();
         loginPage.checkAuthTextIsDisplayed();
         loginPage.checkAuthTextMatch();
     }

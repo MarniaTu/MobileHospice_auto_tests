@@ -7,8 +7,11 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import androidx.test.espresso.matcher.ViewMatchers;
+
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.testdata.TestData;
+import ru.iteco.fmhandroid.ui.utils.IntViewWaiter;
 
 public class AboutPage {
 
@@ -73,5 +76,9 @@ public class AboutPage {
         onView(withId(R.id.about_terms_of_use_value_text_view)).perform(click());
     }
 
+
+    public void waitVersionTitleIsDisplayed() {
+        onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.about_version_title_text_view, 3000));
+    }
 
 }

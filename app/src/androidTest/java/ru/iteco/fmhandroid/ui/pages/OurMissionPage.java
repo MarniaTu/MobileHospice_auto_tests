@@ -8,8 +8,12 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static ru.iteco.fmhandroid.ui.utils.ByIndexMatcher.withIndex;
 
+import androidx.test.espresso.Espresso;
+import androidx.test.espresso.matcher.ViewMatchers;
+
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.testdata.TestData;
+import ru.iteco.fmhandroid.ui.utils.IntViewWaiter;
 import ru.iteco.fmhandroid.ui.utils.RecyclerViewUtils;
 
 public class OurMissionPage {
@@ -39,6 +43,10 @@ public class OurMissionPage {
 
     public void checkFirstOurMissionCardTextExpectedMatch() {
         onView(withIndex(allOf(withId(R.id.our_mission_item_description_text_view), isDisplayed()), 0)).check(matches(withText(expectedText)));
+    }
+
+    public void waitOurMissionTitleIsDisplayed() {
+        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.our_mission_title_text_view, 3000));
     }
 
 }

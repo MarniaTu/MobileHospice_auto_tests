@@ -4,11 +4,8 @@ package ru.iteco.fmhandroid.ui.tests;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
-import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-import androidx.test.espresso.Espresso;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -24,7 +21,6 @@ import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.pages.LoginPage;
 import ru.iteco.fmhandroid.ui.pages.MainPage;
 import ru.iteco.fmhandroid.ui.pages.OurMissionPage;
-import ru.iteco.fmhandroid.ui.utils.IntViewWaiter;
 import ru.iteco.fmhandroid.ui.utils.RecyclerViewItemCountAssertion;
 
 @LargeTest
@@ -43,29 +39,15 @@ public class OurMissionTest {
 
     public void setUp() {
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.enter_button, 5000));
         loginPage = new LoginPage();
+        loginPage.waitUntilLoginScreenLoaded();
+        mainPage = loginPage.performSuccessLogin();
 
-        loginPage.checkAuthTextIsDisplayed();
-        loginPage.checkAuthTextMatch();
-
-        loginPage.checkLoginFieldIsDisplayed();
-        loginPage.enterCorrectLogin();
-
-        loginPage.checkPasswordFieldIsDisplayed();
-        loginPage.enterCorrectPassword();
-
-        loginPage.checkSignInButtonIsDisplayed();
-        loginPage.clickSignInButton();
-
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.our_mission_image_button, 5000));
-
-        mainPage = new MainPage();
         mainPage.checkOurMissionButtonIsDisplayed();
         mainPage.clickOurMissionButton();
 
-        Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.our_mission_title_text_view, 5000));
         ourMissionPage = new OurMissionPage();
+        ourMissionPage.waitOurMissionTitleIsDisplayed();
 
         ourMissionPage.checkOurMissionTitleIsDisplayed();
         ourMissionPage.checkOurMissionTitleMatch();
@@ -74,13 +56,8 @@ public class OurMissionTest {
 
     @After
     public void tearDown() {
-        mainPage.checkAuthorizationImageButtonIsDisplayed();
-        mainPage.clickAuthorizationImageButton();
+        mainPage.performLogOut();
 
-        mainPage.checkLogOutButtonMatch();
-        mainPage.clickLogOutButton();
-
-        Espresso.onView(isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.enter_button, 3000));
         loginPage.checkAuthTextIsDisplayed();
         loginPage.checkAuthTextMatch();
 
