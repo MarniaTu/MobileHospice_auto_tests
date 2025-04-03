@@ -11,25 +11,33 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.is;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Description;
+import io.qameta.allure.kotlin.Feature;
+import io.qameta.allure.kotlin.Story;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.pages.LoginPage;
 import ru.iteco.fmhandroid.ui.pages.MainPage;
 import ru.iteco.fmhandroid.ui.pages.NewsPage;
 import ru.iteco.fmhandroid.ui.testdata.TestData;
+import ru.iteco.fmhandroid.ui.utils.AllureScreenshotWatcher;
 
 @LargeTest
-@RunWith(AndroidJUnit4.class)
+@RunWith(AllureAndroidJUnit4.class)
+@Feature("Добавление новостей")
 public class AddNewsTest {
 
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule = new ActivityScenarioRule<>(AppActivity.class);
+
+    @Rule
+    public AllureScreenshotWatcher screenshotWatcher = new AllureScreenshotWatcher();
 
     private LoginPage loginPage;
     private MainPage mainPage;
@@ -37,6 +45,8 @@ public class AddNewsTest {
 
 
     @Test
+    @Story("Успешное добавление новости")
+    @Description("При заполнении всех полей пользователь добавляет новость")
     public void addNewsTest() {
 
         loginPage = new LoginPage();

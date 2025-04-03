@@ -7,7 +7,6 @@ import androidx.test.espresso.Espresso;
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import org.junit.After;
@@ -16,20 +15,29 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Description;
+import io.qameta.allure.kotlin.Feature;
+import io.qameta.allure.kotlin.Story;
 import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.pages.LoginPage;
 import ru.iteco.fmhandroid.ui.pages.MainPage;
 import ru.iteco.fmhandroid.ui.pages.NewsPage;
+import ru.iteco.fmhandroid.ui.utils.AllureScreenshotWatcher;
 import ru.iteco.fmhandroid.ui.utils.RecyclerViewItemCountAssertion;
 import ru.iteco.fmhandroid.ui.utils.ToastMatcher;
 
 @LargeTest
-@RunWith(AndroidJUnit4.class)
+@RunWith(AllureAndroidJUnit4.class)
+@Feature("Редактирование новостей")
 public class EditNewsTest {
 
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule = new ActivityScenarioRule<>(AppActivity.class);
+
+    @Rule
+    public AllureScreenshotWatcher screenshotWatcher = new AllureScreenshotWatcher();
 
     private LoginPage loginPage;
     private MainPage mainPage;
@@ -71,6 +79,8 @@ public class EditNewsTest {
     }
 
     @Test
+    @Story("Изменение описания первой новости")
+    @Description("Пользователь может внести изменение в текст описания опубликованной новости")
     public void changeDescriptionTest() {
 
         newsPage.checkFirstNewsEditButtonIsDisplayed();
@@ -91,6 +101,8 @@ public class EditNewsTest {
     }
 
     @Test
+    @Story("Попытка оставить пустым поле описания первой новости")
+    @Description("При попытке оставить пустым поле описания новости пользователь не может сохранить изменения")
     public void emptyDescriptionFieldTest() {
 
         newsPage.checkFirstNewsEditButtonIsDisplayed();
@@ -117,6 +129,8 @@ public class EditNewsTest {
     }
 
     @Test
+    @Story("Удаление первой новости")
+    @Description("Пользователь может удалить опубликованную новость")
     public void deleteNewsTest() {
 
         newsPage.checkFirstNewsEditButtonIsDisplayed();
@@ -154,6 +168,8 @@ public class EditNewsTest {
     }
 
     @Test
+    @Story("Подсчет количества новостей на экране контрольной панели")
+    @Description("На экране контрольной панели отображаются 8 карточек с новостями")
     public void newsNumberInControlPanelTest() {
 
         int expectedItemCount = 8;

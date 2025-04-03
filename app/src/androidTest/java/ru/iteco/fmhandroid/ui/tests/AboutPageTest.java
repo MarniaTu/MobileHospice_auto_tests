@@ -1,10 +1,7 @@
 package ru.iteco.fmhandroid.ui.tests;
 
 
-import androidx.test.espresso.Espresso;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import org.junit.After;
@@ -13,21 +10,28 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import ru.iteco.fmhandroid.R;
+import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Description;
+import io.qameta.allure.kotlin.Feature;
+import io.qameta.allure.kotlin.Story;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.pages.AboutPage;
 import ru.iteco.fmhandroid.ui.pages.LoginPage;
 import ru.iteco.fmhandroid.ui.pages.MainPage;
 import ru.iteco.fmhandroid.ui.pages.NewsPage;
 import ru.iteco.fmhandroid.ui.pages.OurMissionPage;
-import ru.iteco.fmhandroid.ui.utils.IntViewWaiter;
+import ru.iteco.fmhandroid.ui.utils.AllureScreenshotWatcher;
 
 @LargeTest
-@RunWith(AndroidJUnit4.class)
+@RunWith(AllureAndroidJUnit4.class)
+@Feature("Навигация на страницу About")
 public class AboutPageTest {
 
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule = new ActivityScenarioRule<>(AppActivity.class);
+
+    @Rule
+    public AllureScreenshotWatcher screenshotWatcher = new AllureScreenshotWatcher();
 
     private LoginPage loginPage;
     private MainPage mainPage;
@@ -60,6 +64,8 @@ public class AboutPageTest {
 
 
     @Test
+    @Story("Переход на страницу About с главной страницы")
+    @Description("Предусмотрен функционал перехода с главной страницы на страницу About")
     public void aboutPageFromMainPageTest() {
 
         mainPage.checkMainMenuButtonIsDisplayed();
@@ -83,6 +89,8 @@ public class AboutPageTest {
     }
 
     @Test
+    @Story("Переход на страницу About со страницы новостей")
+    @Description("Предусмотрен функционал перехода со страницы новостей на страницу About")
     public void aboutPageFromNewsPageTest() {
 
         mainPage.checkMainMenuButtonIsDisplayed();
@@ -115,6 +123,8 @@ public class AboutPageTest {
     }
 
     @Test
+    @Story("Переход на страницу About со страницы с цитатами")
+    @Description("Предусмотрен функционал перехода со страницы с цитатами на страницу About")
     public void aboutPageFromOurMissionPageTest() {
 
         mainPage.checkOurMissionButtonIsDisplayed();
@@ -147,6 +157,8 @@ public class AboutPageTest {
     }
 
     @Test
+    @Story("Переход на страницу About из контрольной панели")
+    @Description("Предусмотрен функционал перехода из контрольной панели на страницу About")
     public void aboutPageFromControlPanelTest() {
 
         mainPage.checkMainMenuButtonIsDisplayed();

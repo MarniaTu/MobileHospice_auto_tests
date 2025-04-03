@@ -135,6 +135,7 @@ public class MainPage {
 
 
     public void waitAllNewsTextIsDisplayed() {
+        Allure.step("Ожидание отображения текста AllNews");
         Espresso.onView(ViewMatchers.isRoot()).perform(IntViewWaiter.waitDisplayed(R.id.all_news_text_view, 3000));
 
     }

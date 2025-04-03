@@ -1,29 +1,33 @@
 package ru.iteco.fmhandroid.ui.tests;
 
 
-import androidx.test.espresso.Espresso;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import ru.iteco.fmhandroid.R;
+import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Description;
+import io.qameta.allure.kotlin.Feature;
+import io.qameta.allure.kotlin.Story;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.pages.LoginPage;
 import ru.iteco.fmhandroid.ui.pages.MainPage;
 import ru.iteco.fmhandroid.ui.pages.NewsPage;
-import ru.iteco.fmhandroid.ui.utils.IntViewWaiter;
+import ru.iteco.fmhandroid.ui.utils.AllureScreenshotWatcher;
 
 @LargeTest
-@RunWith(AndroidJUnit4.class)
+@RunWith(AllureAndroidJUnit4.class)
+@Feature("Переход на экран всех новостей")
 public class AllNewsTest {
 
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule = new ActivityScenarioRule<>(AppActivity.class);
+
+    @Rule
+    public AllureScreenshotWatcher screenshotWatcher = new AllureScreenshotWatcher();
 
     private LoginPage loginPage;
     private MainPage mainPage;
@@ -31,6 +35,8 @@ public class AllNewsTest {
 
 
     @Test
+    @Story("Успешный переход на экран всех новостей")
+    @Description("При нажатии на главной странице кнопки AllNews пользователь переходит на экран всех опубликованных новостей")
     public void allNewsTest() {
 
         loginPage = new LoginPage();
