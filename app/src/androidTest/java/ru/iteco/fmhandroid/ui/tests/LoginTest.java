@@ -19,8 +19,8 @@ import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.pages.LoginPage;
 import ru.iteco.fmhandroid.ui.pages.MainPage;
-import ru.iteco.fmhandroid.ui.utils.ToastMatcher;
 import ru.iteco.fmhandroid.ui.utils.IntViewWaiter;
+import ru.iteco.fmhandroid.ui.utils.ToastMatcher;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)

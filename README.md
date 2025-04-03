@@ -1,4 +1,5 @@
 # Приложение «Мобильный хоспис»
+
 ## Процедура запуска авто-тестов
 
 1. Запустить тестируемой приложение в Android Studio на выбранном эмуляторе
@@ -32,7 +33,12 @@ androidTestImplementation 'androidx.test:rules:1.4.0'
 
 androidTestImplementation 'androidx.test.espresso:espresso-intents:3.4.0'
 
-3. В пакете Android приложения создать директорию для тестов **ru.iteco.fmhandroid.ui (androidTest)**
+*для добавления отчетности Allure*
+
+androidTestImplementation 'io.qameta.allure:allure-kotlin-android:2.4.0'
+
+3. В пакете Android приложения создать директорию для тестов **ru.iteco.fmhandroid.ui (androidTest)
+   **
 
 4. В тестовой директории добавить папки для:
 
@@ -42,3 +48,7 @@ androidTestImplementation 'androidx.test.espresso:espresso-intents:3.4.0'
 - страниц PageObject (pages)
 
 5. Для написания шаблона авто-теста рекомендуется использовать инструмент **Espresso Test Recorder**
+
+6. После запуска тестов с помощью инструмента Device Explorer в Android Studio взять *папку allure-results* из файловой системы мобильного устройства / эмулятора - путь /data/data/ru.iteco.fmhandroid.application.FhmApplication/files/allure-results - и сохранить в корень проекта
+
+7. Запустить отчет Allure из корня проекта через терминал командой *allure serve* 
